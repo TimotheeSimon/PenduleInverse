@@ -1,5 +1,6 @@
 #include "Moteurs.h"
-#include "Encodeurs.h"
+
+
 
 void setupMoteurs() {
   pinMode(dirMoteurA, OUTPUT);
@@ -76,13 +77,20 @@ void runMoteurs(int pwmValueA, int pwmValueB) {
 
 
 
-void updateCurrent(double current[]) {
+void updateCurrent(double current[], double motorSpeed[]) {
   // 5 V / 1024 ADC counts = 4.88 mV per count
   // 3.3 V = 2.0 A; 3.3 V / 4.88 mv per count = 676 counts
   // 2.0 A / 676 counts = 2.96 mA per count
 
-
   
-  current[0] = abs(cptA)/cptA * analogRead(currentSensorA) * 0.001  * 2.96;
-  current[1] = abs(cptB)/cptB * analogRead(currentSensorB) * 0.001 * 2.96;
+  int8_t  dirA = 0;
+  int8_t  dirB = 0;
+  if(motorSpeed[0] != 0) dirA = abs(motorSpeed[0])/motorSpeed[0];
+  if(motorSpeed[1] != 0) dirB = abs(motorSpeed[1])/motorSpeed[1];
+  
+  double currentA = dirA * analogRead(currentSensorA) * 2.96;
+  double currentB = dirB * analogRead(currentSensorB) * 2.96;
+
+  current[0] = (double)currentAverageA.reading(currentA) * 0.001;
+  current[1] = (double)currentAverageB.reading(currentB) * 0.001;
 }

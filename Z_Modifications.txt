@@ -1,3 +1,18 @@
+*** 19/01/2020 16:37 ***
+
+Remarques :
+
+- Le courant est maintenant correctement mesuré avec un filtre moyenneur sur 50 échantillons. Le problème était que le filtre moyenneur ne fonctionne qu'avec des entiers.
+- J'ai rajouté un FIR sur la vitesse de rotation du pendule pour elevé le bruit causé par la rotation des moteurs.
+
+A faire :
+
+- Trouver le bon K
+- Trouver le bon K
+- Trouver le bon K
+- Trouver le bon K
+
+
 *** 19/01/2020 14:35 ***
 
 Remarques :

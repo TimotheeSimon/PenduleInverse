@@ -61,9 +61,9 @@ void loop()
   if (Serial.available() > 0) {
     state = Serial.read();
   }
-
-  updateCurrent(current);
+  
   updateMotorSpeed(motorSpeed);
+  updateCurrent(current, motorSpeed);
   updateEuler(euler);
   updateGyro(gyro);
 

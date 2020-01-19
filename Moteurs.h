@@ -24,7 +24,7 @@
 #define currentSensorB A1
 #define pwmThresholdB 32
 
-#define sampleNumber 500
+#define sampleNumber 50
 
 // current filter
 
@@ -36,7 +36,7 @@ static movingAvg currentAverageB(sampleNumber);
 
 void setupMoteurs();
 void runMoteurs(int pwmValueA, int pwmValueB);
-void updateCurrent(double current[]);
+void updateCurrent(double current[], double motorSpeed[]);
 
 
 

@@ -15,7 +15,14 @@ void updateEuler(double euler[]){
 }
 
 void updateGyro(double gyro[]){
+
+  lastGyroA = gyro[0];
+  lastGyroB = gyro[1];
+  
   imu::Vector<3> gyroVector = BNO055.getVector(Adafruit_BNO055::VECTOR_GYROSCOPE);
-  gyro[0] = - gyroVector(1);
-  gyro[1] = - gyroVector(0);
+  
+  gyro[0] = - gyroVector(1) * beta + lastGyroA * (1-beta);
+  gyro[1] = - gyroVector(0) * beta + lastGyroB * (1-beta);
+
+  
 }
