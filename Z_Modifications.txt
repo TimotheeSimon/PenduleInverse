@@ -1,3 +1,18 @@
+*** 19/01/2020 14:35 ***
+
+Remarques :
+- L'identification paramétrique mentionnée précédemment ne donne pas de bons résultats : j'ai conservé les paramètres du moteur trouvés avec les données exprimées en rad/s
+- Il semble y avoir un facteur 2 qui traine dans le modèle du moteur : 12v doit donner environ 3000 °/sec. J'ai donc multiplié Kv par 2...
+- J'ai supprimé le timer4 et ai paramétré le déclenchement des interruptions des encodeurs sur CHANGE. Cela simplifie grandement le code, ne détériore pas les performances (une boucle reste inférieure
+  à 10ms même à vitesse max)
+- La vitesse de rotation du moteur est filtrée par un FIR pour être lissée (un peu)
+
+A faire :
+
+- Le courant n'est pas correctement mesuré : il n'est pas moyenné et ne change pas de signe. Il faut remédier à cela.
+- La rotation des moteurs rajoute beaucoup de bruit dans les mesures du BNO. Il faut remédier à cela.
+
+
 *** 19/01/2020 12:21 ***
 
 Remarques :

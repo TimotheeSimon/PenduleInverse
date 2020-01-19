@@ -4,6 +4,9 @@
 #include <Arduino.h>
 
 // Paramètres
+#ifndef CONTROL_PERIODE_MS
+  #define CONTROL_PERIODE_MS (10)
+#endif
 
 #define encodeurA1 18 // Pin 18, INT3
 #define encodeurB1 22
@@ -11,17 +14,14 @@
 #define encodeurA2 19 // Pin 19, INT2
 #define encodeurB2 23
 
-#define clockFrequency  375000L
-#define clockThreshold 10000
-
-static volatile int8_t dirA = 1;
-static volatile int8_t dirB = 1;
-static volatile int clockA = 0;
-static volatile int clockB = 0;
+const float CPR = 224.4 * 2;
+const float alpha = 0.8;
+static volatile int cptA = 0;
+static volatile int cptB = 0;
 static volatile float motorSpeedA = 0;
 static volatile float motorSpeedB = 0;
-static volatile int memClockA = 0;
-static volatile int memClockB = 0;
+static volatile float previousAngleA, AngleA = 0;
+static volatile float previousAngleB, AngleB = 0;
 
 
 // Fonctions
@@ -29,7 +29,6 @@ static volatile int memClockB = 0;
 void setupEncodeurs();
 void isrEncodeur1();
 void isrEncodeur2();
-void setupTimer4();
 void updateMotorSpeed(double motorSpeed[]);
 
 

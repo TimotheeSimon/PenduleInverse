@@ -28,7 +28,6 @@
 
 // current filter
 
-
 static movingAvg currentAverageA(sampleNumber);
 static movingAvg currentAverageB(sampleNumber);
 

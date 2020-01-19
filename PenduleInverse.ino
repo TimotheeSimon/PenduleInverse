@@ -3,7 +3,7 @@
 #include "Angles.h"
 #include "Encodeurs.h"
 
-float controlSampleTime = BNO055_SAMPLERATE_DELAY_MS * 1e-3;
+
 int8_t state = 0;
 
 static InvertedPendulumModel model;
@@ -26,12 +26,12 @@ void setup()
 
 
   
-  controller.K << -3.63765402e+01, -5.76162892e+00, -1.82990705e-02, 1.98775374e+00, 0, 0, 0, 0,     
-                  0, 0, 0, 0, -3.63765402e+01, -5.76162892e+00, -1.82990705e-02, 1.98775374e+00;
+  controller.K << -0.3594, -0.0569, -0.0003, 1.5661, 0, 0, 0, 0,     
+                  0, 0, 0, 0, -0.3594, -0.0569, -0.0003, 1.5661;
 
 
-  controller.I << 5, 0, 0, 0, 0, 0, 0, 0,
-                  0, 0, 0, 0, 5, 0, 0, 0;
+  controller.I << 0, 0, 0, 0, 0, 0, 0, 0,
+                  0, 0, 0, 0, 0, 0, 0, 0;
 
   controller.r << 0.00;
                   0.00;
@@ -76,12 +76,11 @@ void loop()
   y(6) = motorSpeed[1];
   y(7) = current[1];
 
-  controller.update(y, controlSampleTime);
+  controller.update(y, CONTROL_PERIODE_MS * 1e-3);
 
   
 
   if (state == 32) {
-
     // Commande des moteurs selon la commande calculée
     runMoteurs(-(int)controller.u(0)*255/12, -(int)controller.u(1)*255/12);
   }
@@ -90,11 +89,8 @@ void loop()
 
   }
   stateDisplayer(y);
-
-
-
   
-  while ((micros() - tStart) < (controlSampleTime * 1e6))
+  while ((micros() - tStart) < (CONTROL_PERIODE_MS * 1e3))
   {
     //poll until the next sample is ready
   }
