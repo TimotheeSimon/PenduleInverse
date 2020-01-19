@@ -1,0 +1,12 @@
+*** 19/01/2020 12:21 ***
+
+Remarques :
+- Version fonctionnelle implémentée en respectant le formalisme de la programmation en C++ (fichiers séparés en .h et .cpp)
+- Gain notable en rapidité d'exécution grâce au BNO055. Le tracé des états en même temps que le fonctionnement du système est maintenant possible.
+- Il est possible de visualiser les états grâce à SerialPlot qui est un outil opensource (nécessite un formatage .csv des données)
+- J'ai observé que convertir les sorties du BNO055 en radians détériore la précision. Il faut donc les laisser en degrés.
+
+
+À faire : 
+- Refaire l'identification paramétrique des moteurs en passant tout en degrés.
+- Profiter du gain de rapidité d'exécution pour déclancher les interruptions des encodeurs sur des changements de fronts et supprimer le timer4 (plus robuste).
